@@ -27,4 +27,6 @@ class KalmanFilter:
 
         #Corrected mean value and covaraince matrix
         self.z = self.z_predicted + K @ (y-y_predicted)
-        self.Sigma = self.Sigma_predicted - K @ S @ K.T
+        #Calculation of updated covariance matrix using Joseph form for numerical stability
+        I_KH = np.eye(len(self.z)) - K @ self.H
+        self.Sigma = I_KH @ self.Sigma_predicted @ I_KH.T + K @ self.R @ K.T

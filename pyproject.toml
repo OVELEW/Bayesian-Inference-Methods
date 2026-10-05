@@ -6,7 +6,19 @@ build-backend = "setuptools.build_meta"
 name = "bayesian_inference_python"
 version = "0.1.0"
 description = "A package for Bayesian Inference and Kalman filtering"
-dependencies = []
+dependencies = [
+    "numpy"
+    "jax"]
+requires-python = ">=3.9"
+
+[project.optional-dependencies]
+dev = [
+    "matplotlib",
+    "pytest",]
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

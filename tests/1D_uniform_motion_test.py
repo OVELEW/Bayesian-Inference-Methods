@@ -1,15 +1,11 @@
-from pathlib import Path
-import sys
-sys.path.append(str(Path(__file__).resolve().parent.parent))
-
-import KalmanFilter as kf
-import KalmanSmoother as ks
+import Kalman.KalmanFilter as kf
+import Kalman.KalmanSmoother as ks
 import numpy as np
 import matplotlib.pyplot as plt
 
 dt = 0.5
 F = np.array([[1 , dt],
-              [0 , 0.1]])
+              [0 , 1]])
 
 q = 1
 Q = np.array([[q, 0],
@@ -29,10 +25,10 @@ C_0 = np.array([[c, 0],
                 [0, c]])
 
 KF = kf.KalmanFilter(F, Q, H, R, z_0, C_0)
-KS = ks.KalmanSmoother(F,Q)
+KS = ks.KalmanSmoother(F)
 rng = np.random.default_rng()
 
-T = 60
+T = 20
 time = np.arange(0, T, dt)
 stages = len(time)
 z_true = np.zeros((stages, 2))
